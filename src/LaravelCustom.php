@@ -8,11 +8,6 @@ use SmallRuralDog\LaravelCustom\Api\ExceptionReport;
 
 class LaravelCustom
 {
-    public function printRunning()
-    {
-        echo 'running';
-    }
-
 
     public static function ExceptionReport(Exception $exception)
     {
