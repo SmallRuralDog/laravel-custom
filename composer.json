@@ -1,0 +1,24 @@
+{
+    "name": "smallruraldog/laravel-custom",
+    "authors": [
+        {
+            "name": "SmallRuralDog",
+            "email": "296404875@qq.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "SmallRuralDog\\LaravelCustom\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SmallRuralDog\\LaravelCustom\\LaravelCustomServiceProvider"
+            ],
+            "aliases": {
+            }
+        }
+    }
+}
