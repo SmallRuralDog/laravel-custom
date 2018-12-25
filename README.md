@@ -5,7 +5,7 @@ laravel 5.5+ 一些自定义的扩展帮助工具
 ### 安装
 首先确保安装好了laravel
 ```
-composer require smallruraldog/laravel-custom "1.0.*"
+composer require smallruraldog/laravel-custom
 ```
 然后运行下面的命令来发布资源：
 ```
@@ -31,30 +31,11 @@ public function render($request, Exception $exception)
     }
 
 ```
-控制器代码
-```php
-class TestController extends Controller
-{
-    use ApiResponse;
-
-    public function index(){
-        throw new ApiExceptions("123456");
-    }
-
-}
-```
 
 异常拦截自定义
 ```php
 //[message:自定义消息,code:状态码,status:状态]
 'do-report' => [
-     \SmallRuralDog\LaravelCustom\Exceptions\ApiExceptions::class => [false, 400, 'error'],
-     \Illuminate\Auth\AuthenticationException::class => ['用户未授权', 400, 'no-login']
+     \Illuminate\Auth\AuthenticationException::class => ['用户未授权', 401, 'no-login']
  ]
-```
-api跨域白名单
-```php
-'Allow-Origin' => [
-    'http://xxx.xxx.com'
-],
-```
+ ```

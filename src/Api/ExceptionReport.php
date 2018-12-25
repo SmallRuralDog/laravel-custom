@@ -1,9 +1,5 @@
 <?php
-/**
- * User: ZhangWei
- * Date: 2018/5/15
- * Time: 15:47
- */
+
 
 namespace SmallRuralDog\LaravelCustom\Api;
 

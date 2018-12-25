@@ -39,17 +39,8 @@ trait ApiResponse
      */
     public function respond($data, $header = [])
     {
-        $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
 
-        $allow_origin = config('laravel-custom.Allow-Origin', []);
-
-        if (in_array($origin, $allow_origin)) {
-            $header['Access-Control-Allow-Origin'] = "*";
-        } else {
-            $header['Access-Control-Allow-Origin'] = config('app.url');
-        }
-
-        return Response::json($data, $this->getStatusCode(), $header);
+        return Response::json($data, $this->getStatusCode(),$header);
     }
 
     /**

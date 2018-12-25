@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ZhangWei
- * Date: 2018/5/15
- * Time: 20:26
- */
+
 
 namespace SmallRuralDog\LaravelCustom\Resources;
 
