@@ -36,6 +36,6 @@ public function render($request, Exception $exception)
 ```php
 //[message:自定义消息,code:状态码,status:状态]
 'do-report' => [
-     \Illuminate\Auth\AuthenticationException::class => ['用户未授权', 401, 'no-login']
+     \Illuminate\Auth\AuthenticationException::class => ['用户未授权', 401, 'error']
  ]
  ```
