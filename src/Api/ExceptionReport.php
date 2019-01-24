@@ -6,8 +6,6 @@ namespace SmallRuralDog\LaravelCustom\Api;
 
 use Exception;
 use Illuminate\Http\Request;
-use SmallRuralDog\LaravelCustom\Exceptions\ApiExceptions;
-use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class ExceptionReport
 {
@@ -39,9 +37,8 @@ class ExceptionReport
     {
         $this->request = $request;
         $this->exception = $exception;
-        $this->doReport = config('laravel-custom.do-report', [
-            ApiExceptions::class => [false, 400],
-            MethodNotAllowedHttpException::class=>['请求失败',400]
+        $this->doReport = array_merge(config('laravel-custom.do-report'), [
+            \Symfony\Component\HttpKernel\Exception\HttpException::class => [$exception->getMessage(), 400]
         ]);
     }
 
@@ -59,7 +56,7 @@ class ExceptionReport
                 return true;
             }
         }
-        return false;
+        return true;
 
     }
 
@@ -77,14 +74,23 @@ class ExceptionReport
      */
     public function report()
     {
-        $message = $this->doReport[$this->report];
-
-        if (!$message[0]) {
-            $message_str = $this->exception->getMessage();
-        } else {
-            $message_str = $message[0] ?? 'error';
+        try {
+            if ($this->report) {
+                $message = $this->doReport[$this->report];
+                if (!$message[0]) {
+                    $message_str = $this->exception->getMessage();
+                } else {
+                    $message_str = $message[0] ?? 'error';
+                }
+                $code = $this->exception->getCode();
+                return $this->failed($message_str, $message[1] ?? $code, $message[2] ?? 'error');
+            } else {
+                return $this->failed('系统异常');
+            }
+        } catch (Exception $exception) {
+            return $this->failed('系统错误:' . $exception->getMessage());
         }
-        return $this->failed($message_str, $message[1] ?? 'error', $message[2] ?? 'error');
+
 
     }
 
